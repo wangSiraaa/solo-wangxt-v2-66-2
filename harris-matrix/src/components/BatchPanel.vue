@@ -14,9 +14,10 @@ function fmtTime(t: number): string {
         <span class="grow" :class="{ undone: b.undone }">
           {{ b.label }}
           <br />
-          <small class="muted">{{ fmtTime(b.at) }}　{{ b.mutations.length }} 项变更</small>
+          <small class="muted">{{ fmtTime(b.at) }}　{{ b.kind === 'manual' ? '手工操作' : '现场记录' }}　{{ b.mutations.length }} 项变更</small>
         </span>
         <span v-if="b.undone" class="tag hidden">已撤销</span>
+        <span v-else-if="b.kind !== 'manual'" class="tag contemp">现场</span>
       </li>
       <li v-if="state.batches.length === 0" class="muted">暂无操作</li>
     </ul>

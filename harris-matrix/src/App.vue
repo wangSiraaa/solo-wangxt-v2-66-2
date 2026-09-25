@@ -4,6 +4,8 @@ import MatrixCanvas from './components/MatrixCanvas.vue'
 import UnitPanel from './components/UnitPanel.vue'
 import RelationPanel from './components/RelationPanel.vue'
 import BatchPanel from './components/BatchPanel.vue'
+import FieldPanel from './components/FieldPanel.vue'
+import FieldImportModal from './components/FieldImportModal.vue'
 import {
   autoLayout,
   cancelCycle,
@@ -13,6 +15,7 @@ import {
   importProject,
   lastBatch,
   loadSample,
+  openFieldImport,
   redundantIds,
   refresh,
   state,
@@ -21,6 +24,7 @@ import {
 } from './store'
 
 const fileInput = ref<HTMLInputElement>()
+const fieldFileInput = ref<HTMLInputElement>()
 
 const cyclePathText = computed(() => state.pendingCycle?.path.map(unitLabel).join(' → ') ?? '')
 
@@ -32,6 +36,12 @@ function onImportFile(e: Event) {
   const file = (e.target as HTMLInputElement).files?.[0]
   if (file) void importProject(file)
   if (fileInput.value) fileInput.value.value = ''
+}
+
+function onFieldFile(e: Event) {
+  const file = (e.target as HTMLInputElement).files?.[0]
+  if (file) void openFieldImport(file)
+  if (fieldFileInput.value) fieldFileInput.value.value = ''
 }
 </script>
 
@@ -55,7 +65,9 @@ function onImportFile(e: Event) {
       </button>
       <button @click="loadSample">载入示例</button>
       <button @click="exportProject" :disabled="state.units.length === 0">导出工程</button>
-      <button @click="fileInput?.click()">导入…</button>
+      <button @click="fieldFileInput?.click()">现场记录导入…</button>
+      <input ref="fieldFileInput" type="file" accept="application/json" hidden @change="onFieldFile" />
+      <button @click="fileInput?.click()">导入工程…</button>
       <input ref="fileInput" type="file" accept="application/json" hidden @change="onImportFile" />
       <button class="danger" @click="clearAll()">清空</button>
     </header>
@@ -64,6 +76,7 @@ function onImportFile(e: Event) {
       <aside class="sidebar">
         <UnitPanel />
         <RelationPanel />
+        <FieldPanel />
         <BatchPanel />
       </aside>
       <MatrixCanvas />
@@ -72,6 +85,8 @@ function onImportFile(e: Event) {
     <footer class="statusbar">
       数据仅保存于本机浏览器 IndexedDB，不上传任何现场资料。地层身份与画布位置分离存储；撤销以批次为单位，关系与证据引用一并恢复。
     </footer>
+
+    <FieldImportModal />
 
     <!-- 成环确认对话框：给出完整环路径 -->
     <div v-if="state.pendingCycle" class="modal-mask" @click.self="cancelCycle">

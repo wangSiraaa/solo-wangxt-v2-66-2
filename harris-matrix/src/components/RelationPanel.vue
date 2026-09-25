@@ -22,6 +22,13 @@ function describe(r: Relation): string {
     : `${unitLabel(r.from)} ≈ ${unitLabel(r.to)}（同期）`
 }
 
+const statusNames: Partial<Record<Relation['status'], string>> = {
+  retracted: '已撤回',
+  superseded: '旧版本',
+  conflicted: '待归并',
+  undone: '已撤销',
+}
+
 function isHidden(r: Relation): boolean {
   return state.viewMode === 'simplified' && redundantIds.value.has(r.id)
 }
