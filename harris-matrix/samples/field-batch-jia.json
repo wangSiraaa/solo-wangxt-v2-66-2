@@ -1,0 +1,38 @@
+{
+  "app": "harris-matrix-field-batch",
+  "version": 1,
+  "sourceId": "T0304-JIA",
+  "sourceName": "探方 T0304 记录员甲",
+  "collectedAt": "2026-09-20T08:30:00+08:00",
+  "note": "上午剖面清理记录",
+  "records": [
+    {
+      "key": "obs-001",
+      "from": "1003",
+      "to": "1001",
+      "kind": "earlier",
+      "source": "observation",
+      "collectedAt": "2026-09-20T08:35:00+08:00",
+      "evidenceRefs": ["田野日记·第12页"],
+      "note": "淤积层被表土直接覆盖"
+    },
+    {
+      "key": "obs-002",
+      "from": "1007",
+      "to": "1003",
+      "kind": "earlier",
+      "source": "observation",
+      "collectedAt": "2026-09-20T08:50:00+08:00",
+      "note": "居住面在淤积层之下"
+    },
+    {
+      "key": "obs-003",
+      "from": "1012",
+      "to": "1015",
+      "kind": "contemporary",
+      "source": "observation",
+      "collectedAt": "2026-09-20T09:10:00+08:00",
+      "note": "陶片层与踩踏面为同期活动面（无向，不进有向图）"
+    }
+  ]
+}

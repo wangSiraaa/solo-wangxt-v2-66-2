@@ -1,0 +1,29 @@
+{
+  "app": "harris-matrix-field-batch",
+  "version": 1,
+  "sourceId": "PROFILE-S04-YI",
+  "sourceName": "剖面图 S-04 复核人乙",
+  "collectedAt": "2026-09-22T14:00:00+08:00",
+  "note": "剖面复核，与甲对 1009/1012 的判断相反——导入后进入待归并，不覆盖甲的记录",
+  "records": [
+    {
+      "key": "review-001",
+      "from": "1012",
+      "to": "1009",
+      "kind": "earlier",
+      "source": "observation",
+      "collectedAt": "2026-09-22T14:10:00+08:00",
+      "evidenceRefs": ["剖面图 S-04"],
+      "note": "乙据剖面认为陶片层早于灰坑填土（与既有记录相反，待归并）"
+    },
+    {
+      "key": "review-002",
+      "from": "1003",
+      "to": "1001",
+      "kind": "earlier",
+      "source": "inference",
+      "collectedAt": "2026-09-22T14:30:00+08:00",
+      "note": "对 obs-001 同一结论的独立复核：内容若完全一致将幂等识别（仅来源不同时为独立记录）"
+    }
+  ]
+}

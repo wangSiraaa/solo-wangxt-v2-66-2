@@ -82,6 +82,9 @@ function fmtTime(t: number): string {
         <span class="grow">
           {{ describe(r) }}
           <span class="tag" :class="r.source">{{ sourceNames[r.source] }}</span>
+          <span v-if="r.provenance" class="tag contemp" :title="`现场记录来源 ${r.provenance.sourceId}#${r.provenance.recordKey}`">
+            现场·{{ r.provenance.sourceId }}
+          </span>
           <span v-if="r.kind === 'contemporary'" class="tag contemp">无向</span>
           <span v-if="r.conflict" class="tag conflict">矛盾</span>
           <span v-if="isHidden(r)" class="tag hidden">简化视图中隐藏</span>

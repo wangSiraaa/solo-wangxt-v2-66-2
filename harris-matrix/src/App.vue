@@ -4,6 +4,8 @@ import MatrixCanvas from './components/MatrixCanvas.vue'
 import UnitPanel from './components/UnitPanel.vue'
 import RelationPanel from './components/RelationPanel.vue'
 import BatchPanel from './components/BatchPanel.vue'
+import FieldPanel from './components/FieldPanel.vue'
+import FieldImportModal from './components/FieldImportModal.vue'
 import {
   autoLayout,
   cancelCycle,
@@ -15,6 +17,7 @@ import {
   loadSample,
   redundantIds,
   refresh,
+  restoreFieldProjection,
   state,
   undo,
   unitLabel,
@@ -24,8 +27,10 @@ const fileInput = ref<HTMLInputElement>()
 
 const cyclePathText = computed(() => state.pendingCycle?.path.map(unitLabel).join(' → ') ?? '')
 
-onMounted(() => {
-  void refresh()
+onMounted(async () => {
+  await refresh()
+  // 刷新后自愈：批次、版本、归并决定与撤销状态均可恢复，投影按持久化状态重算
+  await restoreFieldProjection()
 })
 
 function onImportFile(e: Event) {
@@ -63,6 +68,7 @@ function onImportFile(e: Event) {
     <main class="main">
       <aside class="sidebar">
         <UnitPanel />
+        <FieldPanel />
         <RelationPanel />
         <BatchPanel />
       </aside>
@@ -86,6 +92,8 @@ function onImportFile(e: Event) {
         </div>
       </div>
     </div>
+
+    <FieldImportModal />
 
     <div v-if="state.toast" class="toast">{{ state.toast }}</div>
   </div>
